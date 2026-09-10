@@ -2,9 +2,37 @@ const MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/w7i4j382d7eg2rnvi4brdfghxqdk
 
 document.addEventListener('DOMContentLoaded', () => {
   setUpGateReveal();
+  setUpProofAutoScroll();
   hydrateHeroFigures();
   wireWaitlistForm();
 });
+
+function setUpProofAutoScroll() {
+  const el = document.querySelector('[data-proof-scroll]');
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let direction = 1;
+  let paused = false;
+
+  el.addEventListener('mouseenter', () => (paused = true));
+  el.addEventListener('mouseleave', () => (paused = false));
+  el.addEventListener('touchstart', () => (paused = true), { passive: true });
+  el.addEventListener('touchend', () => (paused = false));
+  el.addEventListener('focusin', () => (paused = true));
+  el.addEventListener('focusout', () => (paused = false));
+
+  function step() {
+    const max = el.scrollHeight - el.clientHeight;
+    if (!paused && max > 0) {
+      el.scrollTop += direction * 0.35;
+      if (el.scrollTop >= max) direction = -1;
+      if (el.scrollTop <= 0) direction = 1;
+    }
+    requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
 
 function setUpGateReveal() {
   const groups = document.querySelectorAll('.gate');
