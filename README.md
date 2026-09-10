@@ -4,8 +4,8 @@ Static site for Catan Strategy Group. Plain HTML/CSS/JS, no build step, deployed
 
 ## Structure
 
-- `index.html` — homepage (masthead, hero, engagements ledger, mandates, who we consider, waitlist form, Owners' Thoughts preview, footer).
-- `owners-thoughts/` — blog index + one article page per slug. Content is fetched client-side from Supabase (`posts` table, `published = true` only).
+- `index.html` — homepage (masthead, hero, engagements ledger, mandates, who we consider, "Request our help" form, footer). Owners' Thoughts is a top-level nav link, not a homepage section.
+- `owners-thoughts/` — blog index + one article page per slug. Content is fetched client-side from Supabase (`posts` table, `published = true` only). 4 real articles are live: family succession, hiring volume, building wealth outside the business, investing without a broker.
 - `privacy/`, `terms/` — legal pages (placeholder copy, pending legal review).
 - `assets/css/main.css` — the whole design system (tokens, components, animations).
 - `assets/js/main.js` — form handling, scroll-reveal, Supabase hydration.
@@ -19,8 +19,7 @@ Static site for Catan Strategy Group. Plain HTML/CSS/JS, no build step, deployed
 
 ## Before this goes live on catansg.com
 
-- [ ] Update `practice_status` in Supabase with real seats-occupied / list-count / next-review figures.
-- [ ] Replace the placeholder row in the "Present engagements" table (`index.html`) with real anonymized sector/tenure/mandate data.
-- [ ] Populate the 3 `posts` rows with the real article content and set `published = true`.
+- [ ] Confirm the "Projects under review" figure (currently 9, a placeholder) in `practice_status`.
+- [ ] Build the "What we have done" section (above "Who we consider") — needs the six items Rex wrote; not yet built, see chat.
 - [ ] Legal review of `/privacy/` and `/terms/`.
 - [ ] Point DNS at GitHub Pages (see the 4 A records + `www` CNAME in the deployment notes) and enable "Enforce HTTPS" once it propagates.
