@@ -3,7 +3,6 @@ const MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/w7i4j382d7eg2rnvi4brdfghxqdk
 document.addEventListener('DOMContentLoaded', () => {
   setUpGateReveal();
   hydrateHeroFigures();
-  hydrateThoughtsPreview();
   wireWaitlistForm();
 });
 
@@ -50,31 +49,7 @@ async function hydrateHeroFigures() {
   if (totalEl) totalEl.textContent = String(total).padStart(2, '0');
   if (listEl) listEl.textContent = String(status.list_count).padStart(2, '0');
   if (reviewEl) reviewEl.textContent = status.next_review || '—';
-  if (standingEl) standingEl.textContent = occupied >= total ? 'Not accepting' : 'Accepting';
-}
-
-async function hydrateThoughtsPreview() {
-  const container = document.querySelector('[data-thoughts-preview]');
-  if (!container) return;
-
-  const posts = await fetchPublishedPosts(3);
-  if (!posts.length) {
-    container.innerHTML = '<li class="microlabel">More soon.</li>';
-    return;
-  }
-
-  container.innerHTML = posts
-    .map(
-      (post) => `
-        <li>
-          <a class="title" href="/owners-thoughts/${post.slug}/">${escapeHtml(post.title)}</a>
-          <div class="thoughts-meta microlabel">
-            <span>${escapeHtml(post.tag || '')}</span>
-            <span>${post.published_at ? formatDate(post.published_at) : ''}</span>
-          </div>
-        </li>`
-    )
-    .join('');
+  if (standingEl) standingEl.textContent = occupied >= total ? 'Not accepting projects' : 'Accepting projects';
 }
 
 function wireWaitlistForm() {
@@ -121,13 +96,3 @@ function wireWaitlistForm() {
   });
 }
 
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-function formatDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}

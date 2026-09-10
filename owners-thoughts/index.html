@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Owners' Thoughts — Catan Strategy Group</title>
+<meta name="description" content="Practical, unfiltered advice for owner-operators — hiring, wealth, succession, and running the business.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&display=swap" rel="stylesheet">
@@ -14,9 +15,10 @@
 <header class="masthead shell">
   <a class="wordmark" href="/">Catan Strategy Group</a>
   <nav>
-    <a class="microlabel" href="/#engagements">Clientele</a>
+    <a class="microlabel" href="/#engagements">Projects</a>
     <a class="microlabel" href="/#mandates">Mandates</a>
-    <a class="microlabel" href="/#the-list">The list</a>
+    <a class="microlabel" href="/owners-thoughts/">Owners' Thoughts</a>
+    <a class="microlabel" href="/#the-list">Request our help</a>
   </nav>
 </header>
 
@@ -25,6 +27,7 @@
   <div class="page-hero">
     <p class="microlabel">Owners' Thoughts</p>
     <h1>Practical advice for small business owners</h1>
+    <p class="prose" style="margin-top: clamp(14px, 2vw, 20px); max-width: 56ch;">No filler, no fluff. Real guidance on hiring, wealth, succession, and running the business, straight from Rex Barr.</p>
   </div>
   <ul class="thoughts-list" data-thoughts-index>
     <li class="microlabel">Loading…</li>
@@ -39,6 +42,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/assets/js/supabase-client.js"></script>
 <script>
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
   document.addEventListener('DOMContentLoaded', async () => {
     const container = document.querySelector('[data-thoughts-index]');
     const posts = await fetchPublishedPosts();
@@ -47,21 +61,18 @@
       return;
     }
     container.innerHTML = posts
-      .map((post) => {
-        const title = document.createElement('div');
-        title.textContent = post.title;
-        const excerpt = document.createElement('div');
-        excerpt.textContent = post.excerpt || '';
-        return `
+      .map(
+        (post) => `
           <li>
-            <a class="title" href="/owners-thoughts/${post.slug}/">${title.innerHTML}</a>
+            <a class="title" href="/owners-thoughts/${post.slug}/">${escapeHtml(post.title)}</a>
             <div class="thoughts-meta microlabel">
-              <span>${post.tag || ''}</span>
-              <span>${post.read_time || ''}</span>
+              <span>${escapeHtml(post.tag)}</span>
+              <span>${formatDate(post.published_at)}</span>
+              <span>${escapeHtml(post.read_time)}</span>
             </div>
-            <p class="prose" style="margin-top:10px;">${excerpt.innerHTML}</p>
-          </li>`;
-      })
+            <p class="prose" style="margin-top: 12px; max-width: 62ch;">${escapeHtml(post.excerpt)}</p>
+          </li>`
+      )
       .join('');
   });
 </script>

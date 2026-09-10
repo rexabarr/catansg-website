@@ -94,6 +94,12 @@ a:hover { color: var(--color-accent-2); }
   font-weight: 400;
   max-width: 18ch;
 }
+.hero h1.hero-sentence {
+  font-size: clamp(30px, 4.2vw, 58px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  max-width: 22ch;
+}
 .hero p.standfirst {
   margin: clamp(24px, 3vw, 40px) 0 0;
   font-size: clamp(15px, 1.3vw, 18px);
@@ -157,7 +163,6 @@ h2 {
   vertical-align: baseline;
 }
 .ledger tr:hover td { background: var(--row-hover); }
-.ledger .no { color: var(--color-accent); }
 .ledger .opt { display: table-cell; }
 @media (max-width: 760px) {
   .ledger .opt { display: none; }
@@ -308,14 +313,38 @@ footer.site-footer .push-right { margin-left: auto; }
 .back-link { display: inline-block; margin-bottom: clamp(20px, 3vw, 32px); }
 .prose { max-width: 68ch; font-size: 15px; line-height: 1.75; color: var(--color-neutral-800); }
 .prose h2 { margin-top: clamp(32px, 4vw, 48px); }
+.prose h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--color-text);
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.01em;
+  margin: clamp(32px, 4vw, 48px) 0 0.6em;
+}
+.prose h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--color-text);
+  font-size: 18px;
+  margin: 1.8em 0 0.5em;
+}
 .prose p { margin: 0 0 1.2em; }
+.prose ul, .prose ol { margin: 0 0 1.3em; padding-left: 1.3em; line-height: 1.75; }
+.prose li { margin-bottom: 0.5em; }
+.prose li::marker { color: var(--color-accent); }
+.prose a { color: var(--color-link); }
+.prose a:hover { color: var(--color-accent-2); }
+.prose hr { border: none; border-top: 1px solid var(--rule); margin: clamp(32px, 4vw, 48px) 0; }
+.prose em { color: var(--color-neutral-700); }
 .pullquote {
   border-left: 3px solid var(--color-accent);
   padding: 4px 0 4px 22px;
   margin: clamp(28px, 4vw, 44px) 0;
   font-family: var(--font-heading);
+  font-style: normal;
   font-size: clamp(18px, 2vw, 24px);
   line-height: 1.4;
   color: var(--color-text);
+  display: block;
 }
 .article-meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--color-neutral-600); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 10px; }
