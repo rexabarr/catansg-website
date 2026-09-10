@@ -1,5 +1,4 @@
-// TODO: replace with the real Make.com webhook URL once the scenario is created (plan step 8).
-const MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/REPLACE_ME';
+const MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/w7i4j382d7eg2rnvi4brdfghxqdkvhso';
 
 document.addEventListener('DOMContentLoaded', () => {
   setUpGateReveal();

@@ -15,7 +15,7 @@ Static site for Catan Strategy Group. Plain HTML/CSS/JS, no build step, deployed
 ## Backend
 
 - **Supabase project**: `csg-website` (`vuixqisulynzefymwykw`), tables `practice_status`, `contacts`, `posts`. RLS: anon can read `practice_status` and published `posts`, and insert into `contacts`; nothing else is public.
-- **Make.com**: one scenario (Custom Webhook → insert into `contacts` → email `info@catansg.com`) handles the homepage waitlist form. The webhook URL lives in `assets/js/main.js` as `MAKE_WEBHOOK_URL`.
+- **Make.com**: scenario "CSG website - waitlist form" (id `4913304`, team "Catan Strategy Group" / `425847`) — Custom Webhook → `json:CreateJSON` (safe escaping) → HTTP insert into Supabase `contacts` → email `info@catansg.com` via the existing `make@catansg.com` Microsoft connection. Active and tested end-to-end (including quotes/commas/newlines in free-text fields). The webhook URL is wired into `assets/js/main.js` as `MAKE_WEBHOOK_URL`.
 
 ## Before this goes live on catansg.com
 
