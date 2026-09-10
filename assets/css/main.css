@@ -1,0 +1,321 @@
+/* Catan Strategy Group — design tokens (from the Roster design handoff, verbatim) */
+:root {
+  --color-bg: #0b1a2e;
+  --color-surface: #16253c;
+  --color-text: #f4f1ea;
+  --color-accent: #c39547;
+  --color-accent-2: #e8c87a;
+  --color-accent-hover: #d1a559;
+  --color-accent-active: #b8893a;
+  --color-link: #e2bd77;
+  --color-neutral-600: #8d99ab;
+  --color-neutral-700: #a8b2c2;
+  --color-neutral-800: #c8d0da;
+  --rule-faint: rgba(244, 241, 234, 0.09);
+  --rule: rgba(244, 241, 234, 0.14);
+  --rule-strong: rgba(244, 241, 234, 0.22);
+  --gold-rule: rgba(195, 149, 71, 0.45);
+  --gold-rule-dim: rgba(195, 149, 71, 0.16);
+  --row-hover: rgba(244, 241, 234, 0.03);
+  --selection: rgba(195, 149, 71, 0.35);
+  --font-heading: "Source Serif 4", Georgia, serif;
+  --font-body: "Source Serif 4", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--selection); }
+
+a { color: var(--color-link); text-decoration: none; }
+a:hover { color: var(--color-accent-2); }
+
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(22px, 6vw, 88px);
+  font-variant-numeric: tabular-nums;
+}
+
+.microlabel {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+}
+
+/* Masthead */
+.masthead {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(16px, 4vw, 48px);
+  padding: clamp(22px, 3vw, 36px) 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--rule);
+}
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-right: auto;
+  color: var(--color-text);
+}
+.masthead nav { display: flex; gap: clamp(16px, 4vw, 32px); flex-wrap: wrap; }
+.masthead a.microlabel { color: var(--color-neutral-700); }
+.masthead a.microlabel:hover { color: var(--color-accent-2); }
+.standing { color: var(--color-accent); }
+.masthead .phone { color: var(--color-neutral-700); }
+.masthead .phone:hover { color: var(--color-accent-2); }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 6vw, 96px);
+  padding: clamp(48px, 8vw, 128px) 0 clamp(40px, 6vw, 88px);
+  align-items: end;
+}
+.hero h1 {
+  margin: clamp(22px, 3vw, 40px) 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(38px, 5.6vw, 82px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  max-width: 18ch;
+}
+.hero p.standfirst {
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.7;
+  max-width: 44ch;
+  color: var(--color-neutral-800);
+}
+.figures { display: grid; gap: clamp(20px, 3vw, 30px); }
+.seat { position: relative; border-left: 1px solid var(--gold-rule); padding: 4px 0 4px 18px; }
+.seat-value { font-family: var(--font-heading); font-size: clamp(30px, 3.4vw, 44px); line-height: 1; }
+.seat-live { border-left-color: var(--gold-rule-dim); }
+.seat-live::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 1px;
+  height: 34%;
+  background: var(--color-accent-2);
+  animation: seat-scan 2.8s ease-in-out infinite;
+}
+@keyframes seat-scan {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(194%); }
+}
+
+/* Section shell */
+section { padding: clamp(40px, 6vw, 96px) 0; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(20px, 3vw, 34px);
+}
+h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Present engagements — ledger */
+.ledger { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ledger th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--color-neutral-600);
+  padding: 0 20px 12px 0;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.ledger td {
+  padding: 18px 20px 18px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--rule-faint);
+  vertical-align: baseline;
+}
+.ledger tr:hover td { background: var(--row-hover); }
+.ledger .no { color: var(--color-accent); }
+.ledger .opt { display: table-cell; }
+@media (max-width: 760px) {
+  .ledger .opt { display: none; }
+}
+.note { margin: 22px 0 0; font-size: 12px; color: var(--color-neutral-700); max-width: 52ch; }
+
+/* Mandates — quad grid */
+.quad {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(28px, 4vw, 60px);
+  margin-top: clamp(24px, 3vw, 40px);
+  border-top: 1px solid var(--rule);
+  padding-top: clamp(26px, 3vw, 40px);
+}
+.quad h3 { margin: 12px 0 10px; font-family: var(--font-heading); font-size: 21px; font-weight: 400; }
+.quad p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--color-neutral-800); }
+.quad-n { font-size: 11px; letter-spacing: 0.2em; color: var(--color-accent); }
+
+/* Who we consider — the "gate" */
+.glow-head { animation: gold-breathe 7s ease-in-out infinite; }
+@keyframes gold-breathe {
+  0%, 100% { color: var(--color-text); }
+  50% { color: var(--color-accent-2); }
+}
+.gate {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(28px, 4vw, 64px);
+}
+.gate ul {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: grid;
+  gap: 14px;
+  line-height: 1.65;
+}
+.gate-yes .microlabel { color: var(--color-accent-2); }
+.gate-yes ul { font-size: 15px; color: var(--color-text); }
+.gate-no .microlabel { color: var(--color-neutral-600); }
+.gate-no ul { font-size: 14px; color: var(--color-neutral-600); }
+.gate li {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 780ms cubic-bezier(0.16, 0.84, 0.3, 1), transform 780ms cubic-bezier(0.16, 0.84, 0.3, 1);
+}
+.gate.revealed li { opacity: 1; transform: translateY(0); }
+.gate.revealed li:nth-child(2) { transition-delay: 120ms; }
+.gate.revealed li:nth-child(3) { transition-delay: 240ms; }
+.gate.revealed li:nth-child(4) { transition-delay: 360ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .seat-live::after { animation: none; }
+  .seat-live { border-left-color: var(--gold-rule); }
+  .glow-head { animation: none; color: var(--color-text); }
+  .gate li { opacity: 1; transform: none; transition: none; }
+}
+
+/* The list — waitlist form */
+.enquire {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 88px);
+  padding: clamp(48px, 8vw, 120px) 0;
+}
+.enquire h2 { font-size: clamp(24px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -0.02em; max-width: 18ch; }
+.enquire .lede { font-size: 14px; color: var(--color-neutral-800); max-width: 40ch; margin: clamp(16px, 2vw, 24px) 0; }
+.enquire .contactline { display: grid; gap: 4px; font-size: 14px; margin-top: clamp(24px, 3vw, 36px); }
+form.card-form { display: grid; gap: 20px; align-content: start; }
+.field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 20px; }
+label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-neutral-700);
+  margin-bottom: 6px;
+}
+.input, select.input, textarea.input {
+  background: var(--color-surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 11px 12px;
+  width: 100%;
+}
+.input::placeholder { color: rgba(244, 241, 234, 0.4); }
+.input:hover { border-color: var(--gold-rule); }
+textarea.input { min-height: 96px; resize: vertical; }
+select.input option { color: var(--color-bg); }
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  justify-self: start;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.btn-primary:hover { background: var(--color-accent-hover); }
+.btn-primary:active { background: var(--color-accent-active); }
+.btn-primary:disabled { opacity: 0.6; cursor: default; }
+.fineprint { font-size: 12px; color: var(--color-neutral-700); margin: 0; }
+.form-status { font-size: 14px; margin: 0; }
+.form-status.success { color: var(--color-accent-2); }
+.form-status.error { color: var(--color-neutral-800); }
+
+/* Owners' Thoughts preview — plain type list, no cards */
+.thoughts-list { list-style: none; margin: clamp(20px, 3vw, 34px) 0 0; padding: 0; display: grid; gap: clamp(22px, 3vw, 32px); }
+.thoughts-list li { border-top: 1px solid var(--rule-faint); padding-top: clamp(16px, 2vw, 22px); }
+.thoughts-list li:first-child { border-top: none; padding-top: 0; }
+.thoughts-list a.title { font-family: var(--font-heading); font-size: clamp(18px, 2vw, 24px); color: var(--color-text); }
+.thoughts-list a.title:hover { color: var(--color-accent-2); }
+.thoughts-meta { margin-top: 6px; }
+.thoughts-meta span + span::before { content: " · "; }
+
+/* Footer */
+footer.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 40px;
+  padding: 26px 0 44px;
+  border-top: 1px solid var(--rule);
+}
+footer.site-footer .push-right { margin-left: auto; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero, .enquire { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Simple page header used on privacy/terms/blog index/article pages */
+.page-hero { padding: clamp(48px, 6vw, 88px) 0 clamp(24px, 3vw, 40px); }
+.page-hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: clamp(14px, 2vw, 22px) 0 0;
+}
+.back-link { display: inline-block; margin-bottom: clamp(20px, 3vw, 32px); }
+.prose { max-width: 68ch; font-size: 15px; line-height: 1.75; color: var(--color-neutral-800); }
+.prose h2 { margin-top: clamp(32px, 4vw, 48px); }
+.prose p { margin: 0 0 1.2em; }
+.pullquote {
+  border-left: 3px solid var(--color-accent);
+  padding: 4px 0 4px 22px;
+  margin: clamp(28px, 4vw, 44px) 0;
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+.article-meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--color-neutral-600); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 10px; }
