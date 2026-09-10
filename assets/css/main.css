@@ -48,6 +48,7 @@ a:hover { color: var(--color-accent-2); }
 }
 
 .microlabel {
+  margin: 0;
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -114,7 +115,7 @@ a:hover { color: var(--color-accent-2); }
 }
 .figures { display: grid; gap: clamp(20px, 3vw, 30px); }
 .seat { position: relative; border-left: 1px solid var(--gold-rule); padding: 4px 0 4px 18px; }
-.seat-value { font-family: var(--font-heading); font-size: clamp(30px, 3.4vw, 44px); line-height: 1; }
+.seat-value { margin: 6px 0 0; font-family: var(--font-heading); font-size: clamp(30px, 3.4vw, 44px); line-height: 1; }
 .seat-live { border-left-color: var(--gold-rule-dim); }
 .seat-live::after {
   content: "";
