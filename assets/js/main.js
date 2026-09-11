@@ -3,16 +3,25 @@ const MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/w7i4j382d7eg2rnvi4brdfghxqdk
 document.addEventListener('DOMContentLoaded', () => {
   setUpGateReveal();
   setUpProofAutoScroll();
+  setUpMandateCards();
   hydrateHeroFigures();
   wireWaitlistForm();
 });
 
+function setUpMandateCards() {
+  document.querySelectorAll('.mandate-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  });
+}
+
 function setUpProofAutoScroll() {
   const el = document.querySelector('[data-proof-scroll]');
-  if (!el) return;
+  const track = el && el.querySelector('.scroll-track');
+  if (!el || !track) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  let direction = 1;
   let paused = false;
 
   el.addEventListener('mouseenter', () => (paused = true));
@@ -23,11 +32,10 @@ function setUpProofAutoScroll() {
   el.addEventListener('focusout', () => (paused = false));
 
   function step() {
-    const max = el.scrollHeight - el.clientHeight;
-    if (!paused && max > 0) {
-      el.scrollTop += direction * 0.35;
-      if (el.scrollTop >= max) direction = -1;
-      if (el.scrollTop <= 0) direction = 1;
+    const loopPoint = track.offsetHeight; // height of one copy of the list
+    if (!paused && loopPoint > 0) {
+      el.scrollTop += 0.35;
+      if (el.scrollTop >= loopPoint) el.scrollTop -= loopPoint;
     }
     requestAnimationFrame(step);
   }
@@ -61,8 +69,6 @@ function setUpGateReveal() {
 
 async function hydrateHeroFigures() {
   const occupiedEl = document.querySelector('[data-seats-occupied]');
-  const totalEl = document.querySelector('[data-seats-total]');
-  const listEl = document.querySelector('[data-list-count]');
   const reviewEl = document.querySelector('[data-next-review]');
   const standingEl = document.querySelector('[data-standing]');
   if (!occupiedEl && !standingEl) return;
@@ -74,10 +80,8 @@ async function hydrateHeroFigures() {
   const total = status.seats_total;
 
   if (occupiedEl) occupiedEl.textContent = String(occupied).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-  if (totalEl) totalEl.textContent = String(total).padStart(2, '0');
-  if (listEl) listEl.textContent = String(status.list_count).padStart(2, '0');
   if (reviewEl) reviewEl.textContent = status.next_review || '—';
-  if (standingEl) standingEl.textContent = occupied >= total ? 'Not accepting projects' : 'Accepting projects';
+  if (standingEl) standingEl.textContent = occupied >= total ? 'Not Accepting Projects' : 'Accepting Projects';
 }
 
 function wireWaitlistForm() {

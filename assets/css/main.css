@@ -104,7 +104,7 @@ a:hover { color: var(--color-accent-2); }
   line-height: 1.45;
   letter-spacing: 0.002em;
   max-width: 32ch;
-  color: var(--color-neutral-800);
+  color: var(--color-accent-2);
 }
 .hero p.standfirst {
   margin: clamp(24px, 3vw, 40px) 0 0;
@@ -116,6 +116,7 @@ a:hover { color: var(--color-accent-2); }
 .figures { display: grid; gap: clamp(20px, 3vw, 30px); }
 .seat { position: relative; border-left: 1px solid var(--gold-rule); padding: 4px 0 4px 18px; }
 .seat-value { margin: 6px 0 0; font-family: var(--font-heading); font-size: clamp(30px, 3.4vw, 44px); line-height: 1; }
+.seat-value.status-value { font-size: clamp(20px, 2.2vw, 28px); line-height: 1.25; color: var(--color-accent); white-space: nowrap; }
 .seat-live { border-left-color: var(--gold-rule-dim); }
 .seat-live::after {
   content: "";
@@ -184,9 +185,53 @@ h2 {
   border-top: 1px solid var(--rule);
   padding-top: clamp(26px, 3vw, 40px);
 }
-.quad h3 { margin: 12px 0 10px; font-family: var(--font-heading); font-size: 21px; font-weight: 400; }
+.quad h3 { margin: 14px 0 0; font-family: var(--font-heading); font-size: 26px; font-weight: 400; }
 .quad p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--color-neutral-800); }
 .quad-n { font-size: 11px; letter-spacing: 0.2em; color: var(--color-accent); }
+
+/* Mandate flip cards */
+.mandate-card {
+  perspective: 1400px;
+  height: clamp(190px, 20vw, 230px);
+}
+.mandate-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-style: preserve-3d;
+}
+.mandate-card:hover .mandate-card-inner,
+.mandate-card.flipped .mandate-card-inner {
+  transform: rotateY(180deg);
+}
+.mandate-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(20px, 2.4vw, 28px);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--color-surface);
+  transition: border-color 0.3s ease;
+}
+.mandate-card:hover .mandate-card-face,
+.mandate-card.flipped .mandate-card-face {
+  border-color: var(--gold-rule);
+}
+.mandate-card-back {
+  transform: rotateY(180deg);
+}
+.mandate-card-back p {
+  color: var(--color-neutral-800);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mandate-card-inner { transition: none; }
+}
 
 /* What we have done — scrolling proof list, 3 visible at a time */
 .scroll-list {
@@ -206,7 +251,6 @@ h2 {
   line-height: 1.6;
   color: var(--color-neutral-800);
 }
-.scroll-item:first-child { border-top: none; }
 
 /* Who we consider — the "gate" */
 .glow-head { animation: gold-breathe 7s ease-in-out infinite; }
