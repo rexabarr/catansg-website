@@ -22,20 +22,17 @@ function setUpProofAutoScroll() {
   if (!el || !track) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  let paused = false;
-
-  el.addEventListener('mouseenter', () => (paused = true));
-  el.addEventListener('mouseleave', () => (paused = false));
-  el.addEventListener('touchstart', () => (paused = true), { passive: true });
-  el.addEventListener('touchend', () => (paused = false));
-  el.addEventListener('focusin', () => (paused = true));
-  el.addEventListener('focusout', () => (paused = false));
-
+  // Runs continuously, never pauses -- a ticker, not an interactive scroll area.
+  // Position is tracked in `pos`, not read back from scrollTop: some browsers
+  // round scrollTop to whole pixels, which silently eats a sub-pixel-per-frame
+  // increment (0.2px += 0.2px rounds right back to the same integer forever).
+  let pos = 0;
   function step() {
     const loopPoint = track.offsetHeight; // height of one copy of the list
-    if (!paused && loopPoint > 0) {
-      el.scrollTop += 0.2;
-      if (el.scrollTop >= loopPoint) el.scrollTop -= loopPoint;
+    if (loopPoint > 0) {
+      pos += 0.2;
+      if (pos >= loopPoint) pos -= loopPoint;
+      el.scrollTop = pos;
     }
     requestAnimationFrame(step);
   }
