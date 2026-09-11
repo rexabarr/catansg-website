@@ -390,6 +390,29 @@ footer.site-footer .push-right { margin-left: auto; }
   .hero, .enquire { grid-template-columns: minmax(0, 1fr); }
 }
 
+/* Phone-only fixes -- desktop/tablet untouched above this point */
+@media (max-width: 640px) {
+  /* Mandate cards were sized for a multi-column grid; stacked full-width
+     at this size the fixed desktop height reads as mostly empty space. */
+  .mandate-card { height: clamp(160px, 46vw, 190px); }
+  .mandate-card-face { overflow-y: auto; }
+
+  /* Mobile text wraps to 3 lines per item, but the ticker's height assumed
+     2-line desktop items, so the last visible item was clipped mid-sentence.
+     Fade the edges instead of hard-cutting -- always reads as intentional. */
+  .scroll-list {
+    -webkit-mask-image: linear-gradient(to bottom, black 0, black calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0, black calc(100% - 28px), transparent 100%);
+  }
+
+  /* Name/Business and Industry/Location were squeezing into cramped
+     narrow columns; give each field the full row on phone. */
+  .field-row { grid-template-columns: 1fr; }
+
+  /* A little breathing room when the nav wraps to a second line. */
+  .masthead nav { row-gap: 10px; }
+}
+
 /* Simple page header used on privacy/terms/blog index/article pages */
 .page-hero { padding: clamp(48px, 6vw, 88px) 0 clamp(24px, 3vw, 40px); }
 .page-hero h1 {
