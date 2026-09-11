@@ -264,6 +264,10 @@ h2 {
   font-size: 15px;
   line-height: 1.6;
   color: var(--color-neutral-800);
+  transition: color 0.6s ease;
+}
+.scroll-item.is-active {
+  color: var(--color-accent-2);
 }
 
 /* Who we consider — the "gate" */
@@ -339,7 +343,8 @@ label {
 .input::placeholder { color: rgba(244, 241, 234, 0.4); }
 .input:hover { border-color: var(--gold-rule); }
 textarea.input { min-height: 96px; resize: vertical; }
-select.input option { color: var(--color-bg); }
+select.input { color-scheme: dark; }
+select.input option { color: var(--color-text); background: var(--color-surface); }
 .btn-primary {
   background: var(--color-accent);
   color: var(--color-bg);

@@ -20,7 +20,30 @@ function setUpProofAutoScroll() {
   const el = document.querySelector('[data-proof-scroll]');
   const track = el && el.querySelector('.scroll-track');
   if (!el || !track) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function updateActiveItem() {
+    const containerRect = el.getBoundingClientRect();
+    const containerMid = containerRect.top + containerRect.height / 2;
+    let closest = null;
+    let closestDist = Infinity;
+    el.querySelectorAll('.scroll-item').forEach((item) => {
+      const r = item.getBoundingClientRect();
+      const dist = Math.abs(r.top + r.height / 2 - containerMid);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = item;
+      }
+    });
+    el.querySelectorAll('.scroll-item.is-active').forEach((item) => {
+      if (item !== closest) item.classList.remove('is-active');
+    });
+    if (closest) closest.classList.add('is-active');
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    updateActiveItem();
+    return;
+  }
 
   // Runs continuously, never pauses -- a ticker, not an interactive scroll area.
   // Position is tracked in `pos`, not read back from scrollTop: some browsers
@@ -34,6 +57,7 @@ function setUpProofAutoScroll() {
       if (pos >= loopPoint) pos -= loopPoint;
       el.scrollTop = pos;
     }
+    updateActiveItem();
     requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
