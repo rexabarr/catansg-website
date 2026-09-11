@@ -84,7 +84,7 @@ a:hover { color: var(--color-accent-2); }
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   gap: clamp(32px, 6vw, 96px);
-  padding: clamp(40px, 6vw, 96px) 0;
+  padding: clamp(24px, 3vw, 48px) 0;
   align-items: center;
 }
 .hero h1 {
@@ -116,7 +116,7 @@ a:hover { color: var(--color-accent-2); }
 .figures { display: grid; gap: clamp(20px, 3vw, 30px); }
 .seat { position: relative; border-left: 1px solid var(--gold-rule); padding: 4px 0 4px 18px; }
 .seat-value { margin: 6px 0 0; font-family: var(--font-heading); font-size: clamp(30px, 3.4vw, 44px); line-height: 1; }
-.seat-value.status-value { font-size: clamp(20px, 2.2vw, 28px); line-height: 1.25; color: var(--color-accent); white-space: nowrap; }
+.seat-value.status-value { font-size: clamp(17px, 1.8vw, 22px); line-height: 1.25; color: var(--color-accent); white-space: nowrap; }
 .seat-live { border-left-color: var(--gold-rule-dim); }
 .seat-live::after {
   content: "";
@@ -134,7 +134,7 @@ a:hover { color: var(--color-accent-2); }
 }
 
 /* Section shell */
-section { padding: clamp(40px, 6vw, 96px) 0; }
+section { padding: clamp(24px, 3vw, 48px) 0; }
 .section-head {
   display: flex;
   align-items: baseline;
@@ -177,15 +177,29 @@ h2 {
 .note { margin: 22px 0 0; font-size: 12px; color: var(--color-neutral-700); max-width: 52ch; }
 
 /* Mandates — quad grid */
+#mandates > .microlabel {
+  font-family: "Cormorant Garamond", var(--font-heading), serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--color-accent-2);
+}
 .quad {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: clamp(28px, 4vw, 60px);
-  margin-top: clamp(24px, 3vw, 40px);
+  gap: clamp(36px, 5.5vw, 80px);
+  margin-top: clamp(28px, 3.5vw, 44px);
   border-top: 1px solid var(--rule);
   padding-top: clamp(26px, 3vw, 40px);
 }
-.quad h3 { margin: 14px 0 0; font-family: var(--font-heading); font-size: 26px; font-weight: 400; }
+.quad h3 {
+  margin: 14px 0 0;
+  font-family: "Cormorant Garamond", var(--font-heading), serif;
+  font-size: clamp(28px, 2.6vw, 34px);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
 .quad p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--color-neutral-800); }
 .quad-n { font-size: 11px; letter-spacing: 0.2em; color: var(--color-accent); }
 
@@ -198,7 +212,7 @@ h2 {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 1.05s cubic-bezier(0.25, 0.8, 0.25, 1);
   transform-style: preserve-3d;
 }
 .mandate-card:hover .mandate-card-inner,

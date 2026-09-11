@@ -34,7 +34,7 @@ function setUpProofAutoScroll() {
   function step() {
     const loopPoint = track.offsetHeight; // height of one copy of the list
     if (!paused && loopPoint > 0) {
-      el.scrollTop += 0.35;
+      el.scrollTop += 0.2;
       if (el.scrollTop >= loopPoint) el.scrollTop -= loopPoint;
     }
     requestAnimationFrame(step);
