@@ -20,6 +20,19 @@ Static site for Catan Strategy Group. Plain HTML/CSS/JS, no build step, deployed
 ## Before this goes live on catansg.com
 
 - [ ] Confirm the "Projects under review" figure (currently 9, a placeholder) in `practice_status`.
-- [ ] Build the "What we have done" section (above "Who we consider") — needs the six items Rex wrote; not yet built, see chat.
 - [ ] Legal review of `/privacy/` and `/terms/`.
-- [ ] Point DNS at GitHub Pages (see the 4 A records + `www` CNAME in the deployment notes) and enable "Enforce HTTPS" once it propagates.
+- [ ] Point DNS at GitHub Pages (see the 4 A records + `www` CNAME below) and enable "Enforce HTTPS" once it propagates. **Do not touch the MX records** — email (`catansg-com.mail.protection.outlook.com`, Microsoft 365) is unrelated to this and must be left exactly as-is.
+
+## DNS cutover (do this at whichever registrar/DNS host manages catansg.com)
+
+Current A record points at the WordPress host (`66.235.200.145`). Replace it with GitHub Pages':
+
+```
+A     @     185.199.108.153
+A     @     185.199.109.153
+A     @     185.199.110.153
+A     @     185.199.111.153
+CNAME www   rexabarr.github.io
+```
+
+Leave every other record (especially `MX`) untouched.
